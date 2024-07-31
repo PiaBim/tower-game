@@ -12,6 +12,7 @@ public:
     Game(InGame* ingame) : ingame(ingame) {}
     void gamemenu() const;
     void game() const;
+    
 };
 
 #endif

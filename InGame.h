@@ -22,7 +22,7 @@ public:
     void MageGuide() const;
     void RogueGuide() const;
 
-    const Player& GetPlayer() const;
+    Player* GetPlayer();
 
     void SetPlayerAttack(int attack);
     void SetPlayerDefense(int defense);
@@ -36,6 +36,7 @@ public:
 
     void GainPlayerExperience(int amount);
     void LevelUpPlayer();
+    void PrintCardDeck() const;
 
 private:
     ClassType type;

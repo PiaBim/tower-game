@@ -1,8 +1,8 @@
-#ifndef _EVENT_H
-#define _EVENT_H
+#ifndef EVENT_H
+#define EVENT_H
 
 #include <string>
-#include <cstdlib> // rand() 및 srand() 사용을 위한 헤더
+#include <cstdlib> // rand()
 
 using namespace std;
 
@@ -13,19 +13,21 @@ enum class EventType {
     TRAP_TRIGGERED
 };
 
+class Player; // Forward declaration of Player class
+
 class Event {
 public:
     Event(EventType type = EventType::NONE, const string& description = "");
-
+    static Event GenerateRandomEvent(int currentFloor);
     EventType GetType() const;
     string GetDescription() const;
-    void HandleEvent() const;
+    void HandleEvent(const Player& player) const; // const Player&로 수정
 
-    static Event GenerateRandomEvent(); // 랜덤 이벤트 생성 메서드 추가
+    static Event GenerateRandomEvent(); // 랜덤 이벤트 생성 메서드
 
 private:
     EventType type;
     string description;
 };
 
-#endif // _EVENT_H
+#endif // EVENT_H

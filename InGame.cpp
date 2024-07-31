@@ -11,6 +11,8 @@ InGame::InGame(ClassType type, const std::string& name)
             player.SetDefense(4);
             player.SetMagicAttack(0);
             player.SetAgility(2);
+            player.AddCard(new SlashCard());
+            player.AddCard(new ChargeCard());
             break;
         case MAGE:
             player = Player(name, 100, 100, 50, 200, 1, 0, 1, "마법사");
@@ -41,7 +43,7 @@ InGame::InGame(const Player& player)
     // Player 객체를 기반으로 InGame 초기화
     type = (player.GetClassName() == "전사") ? WARRIOR :
            (player.GetClassName() == "마법사") ? MAGE : ROGUE;
-    name = player.getName();
+    name = player.GetName();
 }
 
 std::string InGame::GetCharacterName() const {
@@ -89,9 +91,10 @@ void InGame::RogueGuide() const {
     std::cout << "도적 클래스를 하시겠습니까?" << std::endl;
 }
 
-const Player& InGame::GetPlayer() const {
-    return player; // Player 객체 반환
+Player* InGame::GetPlayer() {
+    return &player; // player의 주소를 반환
 }
+
 
 void InGame::SetPlayerAttack(int attack) {
     player.SetAttack(attack);
@@ -131,4 +134,16 @@ void InGame::GainPlayerExperience(int amount) {
 
 void InGame::LevelUpPlayer() {
     player.LevelUp();
+}
+
+void InGame::PrintCardDeck() const {
+    const std::vector<Card*>& cards = player.GetCards();
+    if (cards.empty()) {
+        std::cout << "카드 덱이 비어 있습니다." << std::endl;
+        return;
+    }
+    std::cout << "현재 카드 덱:" << std::endl;
+    for (const Card* card : cards) {
+        std::cout << "카드 이름: " << card->GetName() << ", CP 비용: " << card->GetCPCost() << std::endl;
+    }
 }

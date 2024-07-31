@@ -8,7 +8,7 @@
 using namespace std;
 
 void MainData::SaveData(const Player& player) {
-    string fileName = player.getName() + ".txt";
+    string fileName = player.GetName() + ".txt";
     ofstream outFile(fileName);
     if (!outFile) {
         cerr << "파일 열기에 실패했습니다: " << fileName << endl;
@@ -16,7 +16,7 @@ void MainData::SaveData(const Player& player) {
     }
 
     // 기본 정보 저장
-    outFile << player.getName() << endl;
+    outFile << player.GetName() << endl;
     outFile << player.GetCurrentFloor() << endl;
     outFile << player.GetClassName() << endl;
     outFile << player.GetHealth() << endl;

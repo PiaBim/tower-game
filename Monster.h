@@ -3,19 +3,29 @@
 
 #include <string>
 
-class Player; // Forward declaration of Player class
+class Player; // Forward declaration to avoid circular dependency
 
 class Monster {
 public:
+    Monster(const std::string& name, int health, int attackPower, int defensePower = 0);
+
+    virtual std::string GetName() const;
+    virtual int GetHealth() const;
+    virtual bool IsDefeated() const;
+    virtual void Attack(Player& player);
+    virtual int GetAttack() const = 0; 
+    virtual void TakeDamage(int damage);
+    virtual int GetDefense() const;
+
+    virtual int GetExperienceReward() const = 0;
+
     virtual ~Monster() = default;
 
-    virtual std::string GetName() const = 0;
-    virtual int GetAttack() const = 0;
-    virtual int GetHealth() const = 0;
-    virtual void TakeDamage(int amount) = 0;
-    virtual void Attack(const Player& player) const = 0;
-    virtual bool IsDefeated() const = 0;
-    virtual int GetDefense() const = 0; // Added virtual method for defense
+protected:
+    std::string name;
+    int health;
+    int attackPower;
+    int defensePower;
 };
 
 #endif // MONSTER_H
